@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
 
+    public static PlayerController Instance;
+
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
 
@@ -12,6 +14,15 @@ public class PlayerController : MonoBehaviour
     public Vector3 _moveDirection;
 
     public InputActionReference move;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        Instance = this;
+    }
 
     private void Update()
     {
