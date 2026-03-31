@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Face the player
         if (PlayerController.Instance.transform.position.x > transform.position.x)
         {
             spriteRenderer.flipX = true;
@@ -15,5 +16,8 @@ public class Enemy : MonoBehaviour
         {
             spriteRenderer.flipX = false;
         }
+
+        // Move towards player
+
     }
 }
