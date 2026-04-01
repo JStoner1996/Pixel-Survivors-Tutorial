@@ -31,6 +31,12 @@ public class EnemySpawner : MonoBehaviour
         if (waves[waveNumber].spawnedEnemyCount >= waves[waveNumber].enemiesPerWave)
         {
             waves[waveNumber].spawnedEnemyCount = 0;
+
+            if (waves[waveNumber].spawnInterval > 0.3f)
+            {
+                waves[waveNumber].spawnInterval *= 0.9f;
+
+            }
             waveNumber++;
         }
 
