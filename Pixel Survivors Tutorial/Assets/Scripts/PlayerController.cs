@@ -10,9 +10,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
 
+    public float playerMaxHealth;
+    public float playerHealth;
     public float moveSpeed;
-    public Vector3 _moveDirection;
 
+    public Vector3 _moveDirection;
     public InputActionReference move;
 
     void Awake()
@@ -22,6 +24,12 @@ public class PlayerController : MonoBehaviour
             Destroy(this);
         }
         Instance = this;
+    }
+
+    void Start()
+    {
+        playerHealth = playerMaxHealth;
+        UIController.Instance.UpdateHealthSlider();
     }
 
     private void Update()
@@ -44,6 +52,18 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(_moveDirection.x * moveSpeed, _moveDirection.y * moveSpeed);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        playerHealth -= damage;
+
+        UIController.Instance.UpdateHealthSlider();
+
+        if (playerHealth <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
 }
