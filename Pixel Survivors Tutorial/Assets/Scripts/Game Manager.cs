@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ShowGameOverScreen()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         UIController.Instance.gameOverPanel.SetActive(true);
     }
     public void Restart()
@@ -55,5 +55,15 @@ public class GameManager : MonoBehaviour
             UIController.Instance.pausePanel.SetActive(false);
             Time.timeScale = 1f;
         }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 }
