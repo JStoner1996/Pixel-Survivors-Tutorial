@@ -1,6 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -8,8 +6,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
     public InputActionReference pause;
+
+    public float gameTime;
+    public bool gameActive;
+
 
     void Awake()
     {
@@ -21,16 +22,29 @@ public class GameManager : MonoBehaviour
 
     }
 
+    void Start()
+    {
+        gameActive = true;
+    }
+
     void Update()
     {
-        if (pause.action.WasPressedThisFrame())
+        if (gameActive)
         {
-            Pause();
+            gameTime += Time.deltaTime;
+            UIController.Instance.UpdateTimer(gameTime);
+
+            if (pause.action.WasPressedThisFrame())
+            {
+                Pause();
+            }
         }
+
     }
 
     public void GameOver()
     {
+        gameActive = false;
         StartCoroutine(ShowGameOverScreen());
     }
 
