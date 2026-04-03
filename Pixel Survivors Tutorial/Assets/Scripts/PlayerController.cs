@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(_moveDirection.x * moveSpeed, _moveDirection.y * moveSpeed);
+        rb.linearVelocity = new Vector3(_moveDirection.x * moveSpeed, _moveDirection.y * moveSpeed);
     }
 
     public void TakeDamage(float damage)

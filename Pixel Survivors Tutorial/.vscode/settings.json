@@ -69,5 +69,5 @@
   },
   "dotnet.defaultSolution": "Pixel Survivors Tutorial.slnx",
   "dotnet.enableWorkspaceBasedDevelopment": false,
-  "cSpell.words": ["Behaviour", "Mathf", "Rigidbody"]
+  "cSpell.words": ["Behaviour", "cooldown", "Mathf", "Rigidbody"]
 }
