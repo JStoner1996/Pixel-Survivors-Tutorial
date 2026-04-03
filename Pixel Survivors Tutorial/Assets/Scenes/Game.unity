@@ -8947,6 +8947,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   pause: {fileID: 5696155746091170385, guid: 26165b8c2c39faa468faf264aa1f8abb, type: 3}
+  gameTime: 0
+  gameActive: 0
 --- !u!1 &478172414
 GameObject:
   m_ObjectHideFlags: 0
@@ -10370,6 +10372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIController
   playerHealthSlider: {fileID: 181364616}
   healthText: {fileID: 2116572745}
+  timerText: {fileID: 701277256}
   gameOverPanel: {fileID: 1339446499}
   pausePanel: {fileID: 705814343}
 --- !u!114 &1521094507

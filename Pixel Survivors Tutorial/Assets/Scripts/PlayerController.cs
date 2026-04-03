@@ -9,12 +9,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
 
+
+    // Player input / movement
+    public Vector3 _moveDirection;
+    public InputActionReference move;
+
+    // Player stats
     public float playerMaxHealth;
     public float playerHealth;
     public float moveSpeed;
 
-    public Vector3 _moveDirection;
-    public InputActionReference move;
+    // Immunity handling
+    private bool isImmune;
+    [SerializeField] private float immunityDuration;
+    [SerializeField] private float immunityTimer;
+
 
     void Awake()
     {
@@ -46,6 +55,15 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("moving", true);
         }
+
+        if (immunityTimer > 0)
+        {
+            immunityTimer -= Time.deltaTime;
+        }
+        else
+        {
+            isImmune = false;
+        }
     }
 
     private void FixedUpdate()
@@ -55,14 +73,20 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        playerHealth -= damage;
-
-        UIController.Instance.UpdateHealthSlider();
-
-        if (playerHealth <= 0)
+        if (!isImmune)
         {
-            gameObject.SetActive(false);
-            GameManager.Instance.GameOver();
+            isImmune = true;
+            immunityTimer = immunityDuration;
+
+            playerHealth -= damage;
+
+            UIController.Instance.UpdateHealthSlider();
+
+            if (playerHealth <= 0)
+            {
+                gameObject.SetActive(false);
+                GameManager.Instance.GameOver();
+            }
         }
     }
 
