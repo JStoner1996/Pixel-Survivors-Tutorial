@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,12 @@ public class PlayerController : MonoBehaviour
     // Player input / movement
     public Vector3 _moveDirection;
     public InputActionReference move;
+
+    // player level
+    public int currentLevel;
+    public int maxLevel;
+    public List<int> playerLevels;
+    public int experience;
 
     // Player stats
     public float playerMaxHealth;
@@ -36,8 +43,10 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        GetExperienceCurve();
         playerHealth = playerMaxHealth;
         UIController.Instance.UpdateHealthSlider();
+        UIController.Instance.UpdateExperienceSlider();
     }
 
     private void Update()
@@ -90,4 +99,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void GetExperience(int addedExperience)
+    {
+        experience += addedExperience;
+        UIController.Instance.UpdateExperienceSlider();
+    }
+
+    private void GetExperienceCurve()
+    {
+        for (int i = playerLevels.Count; i < maxLevel; i++)
+        {
+            playerLevels.Add(Mathf.CeilToInt(playerLevels[playerLevels.Count - 1] * 1.1f + 15));
+        }
+    }
 }
