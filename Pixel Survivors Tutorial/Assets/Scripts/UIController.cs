@@ -16,6 +16,9 @@ public class UIController : MonoBehaviour
 
     public GameObject gameOverPanel;
     public GameObject pausePanel;
+    public GameObject levelUpPanel;
+
+    public LevelUpButton[] levelUpButtons;
 
     void Awake()
     {
@@ -35,7 +38,7 @@ public class UIController : MonoBehaviour
 
     public void UpdateExperienceSlider()
     {
-        playerExperienceSlider.maxValue = PlayerController.Instance.playerLevels[PlayerController.Instance.currentLevel];
+        playerExperienceSlider.maxValue = PlayerController.Instance.playerLevels[PlayerController.Instance.currentLevel - 1];
         playerExperienceSlider.value = PlayerController.Instance.experience;
         experienceText.text = playerExperienceSlider.value + " / " + playerExperienceSlider.maxValue;
     }
@@ -46,5 +49,17 @@ public class UIController : MonoBehaviour
         float sec = Mathf.FloorToInt(timer % 60f);
 
         timerText.text = min + ":" + sec.ToString("00");
+    }
+
+    public void LevelUpPanelOpen()
+    {
+        levelUpPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void LevelUpPanelClosed()
+    {
+        levelUpPanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 }

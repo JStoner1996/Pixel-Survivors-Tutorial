@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
     public float playerHealth;
     public float moveSpeed;
 
+    // Weapon
+    public Weapon activeWeapon;
+
     // Immunity handling
     private bool isImmune;
     [SerializeField] private float immunityDuration;
@@ -103,6 +106,10 @@ public class PlayerController : MonoBehaviour
     {
         experience += addedExperience;
         UIController.Instance.UpdateExperienceSlider();
+        if (experience >= playerLevels[currentLevel - 1])
+        {
+            LevelUp();
+        }
     }
 
     private void GetExperienceCurve()
@@ -111,5 +118,14 @@ public class PlayerController : MonoBehaviour
         {
             playerLevels.Add(Mathf.CeilToInt(playerLevels[playerLevels.Count - 1] * 1.1f + 15));
         }
+    }
+
+    public void LevelUp()
+    {
+        experience -= playerLevels[currentLevel - 1];
+        currentLevel++;
+        UIController.Instance.UpdateExperienceSlider();
+        UIController.Instance.levelUpButtons[0].ActivateButton(activeWeapon);
+        UIController.Instance.LevelUpPanelOpen();
     }
 }
